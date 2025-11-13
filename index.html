@@ -281,16 +281,26 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, onSnapshot, collection, getDoc, updateDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, onSnapshot, collection, getDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // Global variables (will be populated in window scope)
     let db;
     let auth;
     let trainersData = {}; // Cache for trainer details
 
-    // Firebase related setup variables
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+    // *** Hardcoded Firebase Configuration for GitHub Pages Deployment ***
+    const hardcodedFirebaseConfig = {
+      apiKey: "AIzaSyAK1umts0wkVAkCWqtQ_04DQcto78jbZaE",
+      authDomain: "flight-sim-leaderboard.firebaseapp.com",
+      projectId: "flight-sim-leaderboard",
+      storageBucket: "flight-sim-leaderboard.firebasestorage.app",
+      messagingSenderId: "1045910945297",
+      appId: "1:1045910945297:web:39417042ebdf9eda0bbbb0"
+    };
+
+    // Use Canvas environment variables if available, otherwise use hardcoded config
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : hardcodedFirebaseConfig;
+    const appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
     // Set Firestore log level for debugging
@@ -344,6 +354,8 @@
             
         } catch (error) {
             console.error("Error during Firebase initialization or sign-in:", error);
+            // Provide feedback if Firebase init fails completely
+            document.getElementById('form-message').textContent = 'Error connecting to database. Please check console.';
         }
     }
 
@@ -466,8 +478,15 @@
         messageEl.textContent = 'Submitting score...';
         messageEl.className = 'mt-3 text-sm text-center text-yellow-400';
 
-        if (!db || isNaN(scoreValue) || scoreValue < 0) {
-            messageEl.textContent = 'Invalid score value.';
+        // Check if DB is ready before proceeding with logic
+        if (!db) {
+            messageEl.textContent = 'Database is not ready yet. Please wait a moment and try again.';
+            messageEl.className = 'mt-3 text-sm text-center text-red-500';
+            return;
+        }
+
+        if (isNaN(scoreValue) || scoreValue < 0) {
+            messageEl.textContent = 'Invalid score value. Score must be a positive number.';
             messageEl.className = 'mt-3 text-sm text-center text-red-500';
             return;
         }
@@ -497,7 +516,7 @@
             
         } catch (e) {
             console.error("Error adding document: ", e);
-            messageEl.textContent = `Error recording score: ${e.message}`;
+            messageEl.textContent = `Error recording score: ${e.message}. Check browser console.`;
             messageEl.className = 'mt-3 text-sm text-center text-red-500';
         }
     };
@@ -523,6 +542,12 @@
 
     // Actual deletion logic
     window.performDeletion = async (scoreIdToDelete) => {
+        if (!db) {
+            document.getElementById('form-message').textContent = 'Database not ready for deletion.';
+            document.getElementById('form-message').className = 'mt-3 text-sm text-center text-red-500';
+            return;
+        }
+
         const scoresDocRef = doc(getCollectionRef(), 'scores');
         try {
             const docSnap = await getDoc(scoresDocRef);
@@ -588,7 +613,8 @@
                 }
             };
             
-            await updateDoc(trainersDocRef, updatePayload);
+            // Use setDoc with merge: true for robustness to ensure the document exists.
+            await setDoc(trainersDocRef, updatePayload, { merge: true });
             
             modalMessageEl.textContent = 'Trainer details updated successfully!';
             modalMessageEl.className = 'mt-3 text-sm text-center text-green-400';
