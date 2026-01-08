@@ -171,7 +171,7 @@
                   <span class="text-sim-yellow">Flight Sim</span>
                   <span class="text-gray-100"> Score Tracker</span>
                 </h1>
-                <p class="mt-1 text-sm sm:text-base" style="color: rgba(255,255,255,.70);">
+                <p class="mt-1 text-sm sm:text-" style="color: rgba(255,255,255,.70);">
                   Competitive landing & flight challenges — updated in real time.
                 </p>
               </div>
@@ -412,9 +412,9 @@
     </div>
   </div>
 
-  <!-- Firebase -->
+  <!-- Fire -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firejs/11.6.1/fire-app.js";
     import {
       getAuth,
       GoogleAuthProvider,
@@ -424,7 +424,7 @@
       signOut,
       setPersistence,
       browserLocalPersistence
-    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    } from "https://www.gstatic.com/firejs/11.6.1/fire-auth.js";
     import {
       getFirestore,
       doc,
@@ -433,7 +433,7 @@
       collection,
       getDoc,
       setLogLevel
-    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    } from "https://www.gstatic.com/firejs/11.6.1/fire-firestore.js";
 
     let db;
     let auth;
@@ -458,11 +458,11 @@
     let trainersData = {};
     let lastScoresCache = [];
 
-    const hardcodedFirebaseConfig = {
+    const hardcodedFireConfig = {
       apiKey: "AIzaSyAK1umts0wkVAkCWqtQ_04DQcto78jbZaE",
-      authDomain: "flight-sim-leaderboard.firebaseapp.com",
+      authDomain: "https://eddie474.github.io/Landing-Leaderboard-v2-/",
       projectId: "flight-sim-leaderboard",
-      storageBucket: "flight-sim-leaderboard.firebasestorage.app",
+      storageBucket: "flight-sim-leaderboard.firestorage.app",
       messagingSenderId: "1045910945297",
       appId: "1:1045910945297:web:39417042ebdf9eda0bbbb0"
     };
