@@ -249,7 +249,7 @@
 
           <div>
             <label for="pilotName" class="block text-sm font-medium text-gray-300 mb-1">Pilot Name</label>
-            <input type="text" id="pilotName" name="pilotName" required class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-gray-100 focus:ring-yellow-500 focus:border-yellow-500" placeholder="e.g., Eddie Jackson">
+            <input type="text" id="pilotName" name="pilotName" required class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-gray-100 focus:ring-yellow-500 focus:border-yellow-500" placeholder="e.g.,  Jackson">
           </div>
 
           <div>
@@ -345,11 +345,15 @@
     let auth;
 
     // Admin allowlist (UI only; REAL security is in Firestore Rules)
-    // You gave: eddie@aoa.edu
+    // You gave: @aoa.edu
     // Add more emails here when you provide them.
     const ADMIN_EMAILS = [
       "eddie@aoa.edu",
-      // "instructor1@aoa.edu",
+      "nicholas.reynolds@aoa.edu",
+      "chase.harden@aoa.edu",
+      "daniel.rodriguez@aoa.edu",
+      "elise.phillips@aoa.edu",
+      
       // "instructor2@aoa.edu",
     ];
 
