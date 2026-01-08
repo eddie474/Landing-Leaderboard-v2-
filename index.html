@@ -116,10 +116,11 @@
       </div>
     </div>
 
-    <!-- Logo watermark -->
-    <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.10]">
-      <img id="watermark-logo" src="aoa-logo.png" alt="AOA Watermark" class="w-[720px] max-w-[90vw]" />
-    </div>
+<!-- Logo watermark -->
+<div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.10]">
+  <img id="watermark-logo" src="aoa-logo.png" alt="AOA Watermark" class="w-[720px] max-w-[90vw]" />
+</div>
+
 
     <div class="container mx-auto max-w-6xl relative">
       <header class="mb-8">
@@ -458,14 +459,15 @@
     let trainersData = {};
     let lastScoresCache = [];
 
-    const hardcodedFireConfig = {
-      apiKey: "AIzaSyAK1umts0wkVAkCWqtQ_04DQcto78jbZaE",
-      authDomain: "https://eddie474.github.io/Landing-Leaderboard-v2-/",
-      projectId: "flight-sim-leaderboard",
-      storageBucket: "flight-sim-leaderboard.firestorage.app",
-      messagingSenderId: "1045910945297",
-      appId: "1:1045910945297:web:39417042ebdf9eda0bbbb0"
-    };
+ const hardcodedFirebaseConfig = {
+  apiKey: "AIzaSyAK1umts0wkVAkCWqtQ_04DQcto78jbZaE",
+  authDomain: "flight-sim-leaderboard.web.app",   // 
+  projectId: "flight-sim-leaderboard",
+  storageBucket: "flight-sim-leaderboard.firebasestorage.app",
+  messagingSenderId: "1045910945297",
+  appId: "1:1045910945297:web:39417042ebdf9eda0bbbb0"
+};
+
 
     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : hardcodedFirebaseConfig;
     const appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
