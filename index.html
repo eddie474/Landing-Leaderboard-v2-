@@ -415,26 +415,27 @@
 
   <!-- Fire -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firejs/11.6.1/fire-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithRedirect,
-      getRedirectResult,
-      onAuthStateChanged,
-      signOut,
-      setPersistence,
-      browserLocalPersistence
-    } from "https://www.gstatic.com/firejs/11.6.1/fire-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      onSnapshot,
-      collection,
-      getDoc,
-      setLogLevel
-    } from "https://www.gstatic.com/firejs/11.6.1/fire-firestore.js";
+   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  signOut,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  onSnapshot,
+  collection,
+  getDoc,
+  setLogLevel
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
 
     let db;
     let auth;
